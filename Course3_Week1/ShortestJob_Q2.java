@@ -2,18 +2,16 @@ package Course3_Week1;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Scanner;
 
-public class ShortestJob_Q1 {
+public class ShortestJob_Q2 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		int[][] jobs = null;
+		float[][] jobs = null;
 		String[] weight_length;
 
 		String line = "";
@@ -25,7 +23,7 @@ public class ShortestJob_Q1 {
 			BufferedReader br = new BufferedReader(new FileReader("Course3_Module1_Q1_jobs.txt"));
 			line = br.readLine();
 			noOfJobs = Integer.parseInt(line);
-			jobs = new int[noOfJobs + 1][5];
+			jobs = new float[noOfJobs + 1][5];
 			line = br.readLine();
 			while (line != null) {
 				weight_length = line.split(" ");
@@ -38,17 +36,17 @@ public class ShortestJob_Q1 {
 			e.printStackTrace();
 		}
 
-		// arr stores weight-length for each job
-		int arr[] = new int[noOfJobs + 1];
+		// arr stores weight/length for each job
+		float arr[] = new float[noOfJobs + 1];
 		String prevJob = "";
 
 		// HashMap stores mapping of difference(weight-length) and array of jobs
 		// having same difference
-		HashMap<Integer, String> distJobMap = new HashMap<Integer, String>();
+		HashMap<Float, String> distJobMap = new HashMap<Float, String>();
 
 		// Create mapping
 		for (int i = 1; i <= noOfJobs; i++) {
-			jobs[i][4] = jobs[i][2] - jobs[i][3];
+			jobs[i][4] = jobs[i][2] / jobs[i][3];
 			arr[i] = jobs[i][4];
 			if (distJobMap.containsKey(arr[i])) {
 				prevJob = distJobMap.get(arr[i]);
@@ -60,7 +58,8 @@ public class ShortestJob_Q1 {
 
 		// Sort differences in decreasing order
 		Arrays.sort(arr);
-		int temp, length = arr.length;
+		float temp;
+		int length = arr.length;
 		for (int i = 1; i <= arr.length / 2; i++) {
 			temp = arr[i];
 			arr[i] = arr[length - i];
@@ -70,9 +69,9 @@ public class ShortestJob_Q1 {
 		long weightedSumComplTime = 0;
 
 		String[] prevJobs;
-		int[] arr2 = new int[noOfJobs + 1];
+		float[] arr2 = new float[noOfJobs + 1];
 		int arr2Index = 0;
-		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		HashMap<Float, Integer> map = new HashMap<Float, Integer>();
 
 		// Create a distinct array of difference and remove duplicate
 		// differences
@@ -114,4 +113,5 @@ public class ShortestJob_Q1 {
 		}
 		System.out.println("Weighted sum of completion times: " + weightedSumComplTime);
 	}
+
 }
